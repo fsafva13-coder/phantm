@@ -30,26 +30,18 @@ export default async function handler(req, res) {
   if (!messages.length) return res.status(400).json({ reply: "I received silence." });
 
   try {
-    const model = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
-    const payload = {
-      model,
-      temperature: 0.8,
-      // Reasoning models spend part of the budget thinking, so leave headroom.
-      max_tokens: 600,
-      messages: [{ role: "system", content: SYSTEM }, ...messages],
-    };
-    // gpt-oss models accept reasoning_effort; keep it low so replies stay fast and short.
-    if (model.startsWith("openai/gpt-oss")) payload.reasoning_effort = "low";
-
     const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        model: process.env.GROQ_MODEL || "llama-3.3-70b-versatile",
+        temperature: 0.8,
+        max_tokens: 160,
+        messages: [{ role: "system", content: SYSTEM }, ...messages],
+      }),
     });
 
     if (!r.ok) {
-      // Visible in Vercel → Deployments → Functions/Logs when something goes wrong.
-      console.error("Groq error", r.status, model, (await r.text()).slice(0, 400));
       const reply =
         r.status === 429
           ? "Too many signals at once. Give my nodes a few seconds."
