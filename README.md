@@ -4,7 +4,7 @@
 
 ![React](https://img.shields.io/badge/React-18-05d9e8?style=flat-square&logo=react&logoColor=white&labelColor=040408)
 ![Vite](https://img.shields.io/badge/Vite-5-ff2a6d?style=flat-square&logo=vite&logoColor=white&labelColor=040408)
-![Groq](https://img.shields.io/badge/Groq-Llama%203.3%2070B-f5c542?style=flat-square&labelColor=040408)
+![Groq](https://img.shields.io/badge/Groq-gpt--oss--120b-f5c542?style=flat-square&labelColor=040408)
 ![Vercel](https://img.shields.io/badge/Deploy-Vercel-ffffff?style=flat-square&logo=vercel&logoColor=white&labelColor=040408)
 ![License](https://img.shields.io/badge/License-MIT-05d9e8?style=flat-square&labelColor=040408)
 
@@ -29,15 +29,21 @@ Most AI demos are a text box and a spinner. PHANTM turns the conversation into a
 | Frontend | React 18, Vite 5, Canvas 2D, inline SVG, CSS |
 | Browser APIs | Web Speech (recognition + synthesis), Web Audio |
 | Backend | Vercel serverless function (`api/chat.js`) |
-| Model | Llama 3.3 70B via the Groq API (free tier) |
+| Model | `openai/gpt-oss-120b` via the Groq API (free tier) |
 
 ## Screenshots / Demo
 
-| | |
+![PHANTM speaking a reply](docs/05-speaking.png)
+
+| Boot sequence | Idle, cursor-activated nodes |
 | --- | --- |
-| `[Screenshot: boot sequence]` | `[Screenshot: idle state with cursor-activated nodes]` |
-| `[Screenshot: listening state]` | `[Screenshot: thinking state, amber network]` |
-| `[GIF: 20-second voice conversation]` | |
+| ![Boot](docs/01-boot.png) | ![Idle](docs/02-idle-network.png) |
+| **Listening (mic-reactive)** | **Thinking (amber network)** |
+| ![Listening](docs/03-listening.png) | ![Thinking](docs/04-thinking.png) |
+
+<p align="center"><img src="docs/06-mobile.png" alt="Mobile layout" width="260"></p>
+
+> Screenshots were captured from the production build with the API response stubbed and a simulated mic signal for the listening state.
 
 ## Installation
 
@@ -103,7 +109,7 @@ phantm/
 
 ## Demo / Live Link
 
-`https://phantm.vercel.app` — `[replace with your Vercel URL after deploying]`
+**[phantm-three.vercel.app](https://phantm-three.vercel.app)** — best in Chrome or Edge (voice input needs the Web Speech API).
 
 ## License
 
